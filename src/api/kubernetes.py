@@ -1,5 +1,3 @@
-import json
-import os
 from kubernetes import client, config, utils
 from kubernetes.client.rest import ApiException
 from api.exceptions import BatchApiNamespaceNotExistedException
@@ -46,6 +44,6 @@ class KubernetesApi:
                     job = self.api_instance.read_namespaced_job(namespace=namespace,
                                                             name=active_cron_job.name)
                     job_status = self.get_job_status(job)
-                    if job_status == Constants.STATUS_FAILED:
-                        # Do whatever you want in there
-                        print(job_status)
+                    return job_status, job
+
+        return None, None
