@@ -9,6 +9,6 @@ slack_client = Slack(webhook_url)
 
 if __name__ == '__main__':
     while True:
-        status, job = api.get_cron_job_status(namespace)
+        status, job = api.get_all_cron_job_status(namespace)
         if status is not None:
             slack_client.send_message(job)
