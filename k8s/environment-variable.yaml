@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: environment-variable
+  namespace: $namespace
+data:
+  CLUSTER_NAMESPACE: $clusterNamespace

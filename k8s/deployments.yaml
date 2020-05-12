@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-batch-api-example
+  namespace: $namespace
+  labels:
+    app: kubernetes-batch-api-example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubernetes-batch-api-example
+  template:
+    metadata:
+      labels:
+        app: kubernetes-batch-api-example
+    spec:
+      containers:
+        - name: kubernetes-batch-api-example
+          image: $imageName
+          envFrom:
+            - configMapRef:
+                name: environment-variable
+          env:
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: slack-webhook

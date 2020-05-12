@@ -13,6 +13,10 @@ class Constants:
 
 class KubernetesApi:
     def __init__(self):
+        """
+        Note that in cluster you'll use the in cluster config,
+        meanwhile when you try it on your local, you'll use your own kubeconfig.
+        """
         try:
             config.load_incluster_config()
         except:
