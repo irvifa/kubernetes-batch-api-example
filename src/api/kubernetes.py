@@ -163,7 +163,6 @@ class KubernetesApi:
         for cron_job in cron_job_list.items:
             if cron_job.status.active is not None:
                 for active_cron_job in cron_job.status.active:
-                    print(active_cron_job.name)
                     job = self.api_instance.read_namespaced_job(
                         namespace=namespace,
                         name=active_cron_job.name)
@@ -171,3 +170,13 @@ class KubernetesApi:
                     return job_status, job
 
         return None, None
+
+    def get_cron_job_status(self, namespace, name):
+        try:
+            cron_job_status = self.api_instance_v1_beta.read_namespaced_cron_job_status(
+                name=name,
+                namespace=namespace)
+            return cron_job_status.status
+        except ApiException as e:
+            raise BatchApiNamespaceDoesNotExistException(
+                "Exception when calling BatchV1Api->list_namespaced_cron_job: %s\n" % e)
