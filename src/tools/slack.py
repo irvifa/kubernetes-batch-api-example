@@ -1,8 +1,26 @@
 import json, requests
+import slack
 
 class Slack:
-    def __init__(self, webhook_url):
+    def __init__(self, webhook_url, slack_api_token):
         self.webhook_url = webhook_url
+        self.client = slack.WebClient(
+            token=slack_api_token
+        )
+
+    def get_slack_handle(self, email):
+        """
+        In this function we can get the user email based on the email they are using
+        for the slack.
+        :param email:
+        :return:
+        """
+        try:
+            result = self.client.users_lookupByEmail(email=email)
+            if result["ok"]:
+                return result["user"]["id"]
+        except:
+            print(f'''[WARNING] Can't get the slack handle for email: {email}''')
 
     def send_message(self, is_successful):
 

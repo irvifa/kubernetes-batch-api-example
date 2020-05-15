@@ -4,8 +4,9 @@ from tools.slack import Slack
 
 webhook_url = os.environ.get('SLACK_WEBHOOK_URL')
 namespace = os.environ.get('CLUSTER_NAMESPACE')
+slack_api_token=os.environ.get('SLACK_API_TOKEN')
 api = KubernetesApi()
-slack_client = Slack(webhook_url)
+slack_client = Slack(webhook_url, slack_api_token)
 
 if __name__ == '__main__':
     while True:

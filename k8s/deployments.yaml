@@ -26,4 +26,9 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: app-secret
-                  key: slack-webhook
+                  key: slack-webhook-url
+            - name: SLACK_API_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: app-secret
+                    key: slack-webhook-token
